@@ -1,12 +1,41 @@
+
+import java.io.BufferedReader;
+import java.io.InputStreamReader;
+
 import java.io.BufferedWriter;
 import java.io.FileWriter;
 import java.io.IOException;
 
 
-
 public class Encoder {
+
 	
+	BufferedReader userInput;
 	
+	public Encoder()
+	{
+		userInput = new BufferedReader (new InputStreamReader(System.in));
+		
+	}
+	
+	public String getPassword()
+	{
+		String password = "";
+		try
+		{
+			System.out.println("Enter a password:");
+	        password = userInput.readLine();	
+	        userInput.close();
+	        
+	        return password;
+			
+		}
+		catch(Exception e)
+		{
+			return e.toString();
+		}
+	}
+		
 	public String generateSalt(){
 		String salt = "";
 		for(int i=0 ; i < 10; i++)
@@ -14,6 +43,11 @@ public class Encoder {
 		return salt;
 	}
 	
+	public void encrypt(String password){
+	
+		String salt = generateSalt();
+	}
+		
 	public static void writeInPasswordFile(String hashedPassword, String salt){
 		String outFile = "/Users/michaelmkamal/Documents/workspace/Security Project/src/passwordFile.out";
 		try {
@@ -25,9 +59,13 @@ public class Encoder {
 			e.printStackTrace();
 		}
 	}
+
 	
-	public static void main(String[]args){
-		//System.out.println(generateSalt());
+	public void run(){
+		
+		encrypt(getPassword());
+		
 		writeInPasswordFile("Apple", "GUC");
+
 	}
 }
