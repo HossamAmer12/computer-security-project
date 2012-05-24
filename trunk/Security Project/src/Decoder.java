@@ -9,47 +9,102 @@ import javax.sound.sampled.Line;
 public class Decoder {
 
 	private BufferedReader lineReader; // Reader
-	public static String []line = {"a","s"};
+	private BufferedReader dictionaryReader; // Reader
+	public static String []line = {""};
+	public static String dictionary = "";
+
 	
 	public void reader(){
 		
 	String inFile = System.getProperty("user.dir") +"/passwordFile.out";
+	String dicFile = System.getProperty("user.dir") +"/passwordDictionary.dic";
+	
 		try {
 			
 			lineReader = new BufferedReader(new FileReader(inFile));
-			line = lineReader();
-		} catch (FileNotFoundException e) {
+			dictionaryReader = new BufferedReader(new FileReader(dicFile));
+			
+		 } catch (FileNotFoundException e) {
 			e.printStackTrace();
 		}
 		
 
 	}
 	
-	public String [] lineReader(){
+	public void lineReader(){
 		try{
 				
-		    return  (lineReader.readLine().split(":"));
+		      line =(lineReader.readLine().split(":"));
 		      
 			}catch (IOException e){
-			     return null;
+			     
 					}
 		
 	 }
 	
-	public String Decode (String [] s){
+	public String dictinoryReader(){
+		try{
+				
+		     return (dictionaryReader.readLine());
+		      
+			}catch (IOException e){
+				e.printStackTrace();
+			    return null;
+					}
 		
-		return "";
+	 }
+	
+	public String Decode (){
+
+		for(int i = 0; i < line[1].length(); i++){
+			line[0] = line[0].replaceFirst(""+line[1].charAt(i), "");
+		}
+		String o = line[0];
+		
+		while(true){
+	       
+			dictionary =  dictinoryReader();
+			String password = dictionary;
+			 String original = o;
+			
+			 if(dictionary == null){
+				 return "This Password is not in the dictionary";
+			 }
+			 
+			 if(original.length() != dictionary.length()){
+			  continue;
+			 }
+			
+			for(int i = 0; i<original.length(); i++){
+				for(int j = 0; j<dictionary.length(); j++){
+				if(original.charAt(i) == dictionary.charAt(j)){
+					dictionary = dictionary.replaceFirst(""+dictionary.charAt(j), "");
+				}
+				 }
+				
+			}
+		
+			if(dictionary.length() == 0) {
+				return "The Password is :" + password;
+			}
+			
+			
+			
+		}
 	}
 	public Decoder(){
-		
 		reader();
-		
-		
+	    lineReader();
+	   
+
+	    System.out.println(Decode());
+	    
 	}
 	
 	public static void main (String [] args){
 	
 		new Decoder();
-		System.out.println(line[0]);
+		
+		
 	}
 }
