@@ -49,7 +49,7 @@ public class Encoder {
 	}
 		
 	public static void writeInPasswordFile(String hashedPassword, String salt){
-		String outFile = "/Users/michaelmkamal/Documents/workspace/Security Project/src/passwordFile.out";
+		String outFile = "/Users/michaelmkamal/Documents/workspace/Security Project/passwordFile.out";
 		try {
 			BufferedWriter writer = new BufferedWriter(new FileWriter(outFile));
 			writer.write(hashedPassword + ":" + salt);
