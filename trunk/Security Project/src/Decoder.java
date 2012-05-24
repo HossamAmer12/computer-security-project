@@ -14,11 +14,11 @@ public class Decoder {
 	public static String dictionary = "";
 
 	
-	public void reader(){
-		
 	String inFile = System.getProperty("user.dir") +"/passwordFile.out";
 	String dicFile = System.getProperty("user.dir") +"/passwordDictionary.dic";
 	
+	public void reader(){
+		
 		try {
 			
 			lineReader = new BufferedReader(new FileReader(inFile));
@@ -55,7 +55,8 @@ public class Decoder {
 	 }
 	
 	public String Decode (){
-
+	
+		
 		for(int i = 0; i < line[1].length(); i++){
 			line[0] = line[0].replaceFirst(""+line[1].charAt(i), "");
 		}
@@ -79,6 +80,7 @@ public class Decoder {
 				for(int j = 0; j<dictionary.length(); j++){
 				if(original.charAt(i) == dictionary.charAt(j)){
 					dictionary = dictionary.replaceFirst(""+dictionary.charAt(j), "");
+					break;
 				}
 				 }
 				
@@ -94,10 +96,18 @@ public class Decoder {
 	}
 	public Decoder(){
 		reader();
-	    lineReader();
-	   
+		while(true){
+			try{
+				dictionaryReader = new BufferedReader(new FileReader(dicFile));
+			    lineReader();
+			    System.out.println(Decode());
+			}
+			catch (Exception e) {
+				System.exit(0);
+			}
+		}
 
-	    System.out.println(Decode());
+	   
 	    
 	}
 	
