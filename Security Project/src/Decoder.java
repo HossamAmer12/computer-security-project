@@ -3,15 +3,17 @@ import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 
+import javax.sound.sampled.Line;
+
 
 public class Decoder {
 
 	private BufferedReader lineReader; // Reader
-	String []line = {"a","s"};
+	public static String []line = {"a","s"};
 	
-	public void reader(String inFile){
+	public void reader(){
 		
-	// inFile ="C:\\Users\\Michael\\Dropbox\\10th\\1003\\Lab\\Lexical\\Compiler\\Compiler\\src\\P1\\Test.in";
+	String inFile = System.getProperty("user.dir") +"/passwordFile.out";
 		try {
 			
 			lineReader = new BufferedReader(new FileReader(inFile));
@@ -26,7 +28,7 @@ public class Decoder {
 	public String [] lineReader(){
 		try{
 				
-		    return  (lineReader.readLine().split(";"));
+		    return  (lineReader.readLine().split(":"));
 		      
 			}catch (IOException e){
 			     return null;
@@ -34,6 +36,20 @@ public class Decoder {
 		
 	 }
 	
+	public String Decode (String [] s){
+		
+		return "";
+	}
+	public Decoder(){
+		
+		reader();
+		
+		
+	}
 	
+	public static void main (String [] args){
 	
+		new Decoder();
+		System.out.println(line[0]);
+	}
 }
